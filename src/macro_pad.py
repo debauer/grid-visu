@@ -5,7 +5,7 @@ import paramiko
 
 laptop = "bauer"
 username = "debauer"
-keyfile = "id_ed25519"
+keyfile = "/root/.ssh/id_ed25519"
 scriptfolder = "/home/debauer/scripts"
 
 def parse():
