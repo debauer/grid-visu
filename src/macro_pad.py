@@ -14,6 +14,7 @@ def parse():
     return parser.parse_args()
  
 def run_remote_command(command: str, host: str, username: str) -> None:
+    print(f"RUN COMMAND: {command}")
     ssh = paramiko.SSHClient()
     private_key = paramiko.Ed25519Key.from_private_key_file(filename=keyfile)
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -29,10 +30,10 @@ keyboard.add_hotkey('ctrl+alt+w', lambda: run_remote_command("sound.py bayer", l
 keyboard.add_hotkey('ctrl+alt+e', lambda: run_remote_command("sound.py bose", laptop, username))
 keyboard.add_hotkey('ctrl+alt+r', lambda: run_remote_command("sound.py bose", laptop, username))
 
-keyboard.add_hotkey('ctrl+alt+a', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+s', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+d', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+f', lambda: run_remote_command("sound.py bose", laptop, username))
+keyboard.add_hotkey('ctrl+alt+a', lambda: run_remote_command("display.py home-3", laptop, username))
+keyboard.add_hotkey('ctrl+alt+s', lambda: run_remote_command("display.py home-2-big", laptop, username))
+keyboard.add_hotkey('ctrl+alt+d', lambda: run_remote_command("display.py home-2-small", laptop, username))
+keyboard.add_hotkey('ctrl+alt+f', lambda: run_remote_command("display.py home-1", laptop, username))
 
 keyboard.add_hotkey('ctrl+alt+y', lambda: run_remote_command("sound.py bose", laptop, username))
 keyboard.add_hotkey('ctrl+alt+x', lambda: run_remote_command("sound.py bose", laptop, username))
