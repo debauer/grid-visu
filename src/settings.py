@@ -1,0 +1,21 @@
+import pygame
+
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1200
+
+BACKGROUND = (0, 0, 0)
+GRID_BOX_COLOR1 = (34, 50, 64)
+GRID_BOX_COLOR2 = (59, 140, 102)
+GRID_BOX_HEADLINE_COLOR = (147, 217, 78)
+GRID_BOX_TEXT_COLOR = (96, 191, 129)
+
+GRID_BOX_PADDING = 3
+GRID_DIM_Y = 2
+GRID_DIM_X = 3
+
+GRID_WIDTH = SCREEN_WIDTH / GRID_DIM_X
+GRID_HEIGHT = SCREEN_HEIGHT / GRID_DIM_Y
+
+def headline_font():
+    font_path = "font/Retro Gaming.ttf"
+    return pygame.font.Font(font_path, 30)

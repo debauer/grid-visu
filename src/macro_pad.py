@@ -8,11 +8,13 @@ username = "debauer"
 keyfile = "/root/.ssh/id_ed25519"
 scriptfolder = "/home/debauer/scripts"
 
+
 def parse():
     parser = ArgumentParser(description="System to record the data on a trimodal crane")
     parser.add_argument("user", type=str, help="user")
     return parser.parse_args()
- 
+
+
 def run_remote_command(command: str, host: str, username: str) -> None:
     print(f"RUN COMMAND: {command}")
     ssh = paramiko.SSHClient()
@@ -25,19 +27,44 @@ def run_remote_command(command: str, host: str, username: str) -> None:
     print(opt)
 
 
-keyboard.add_hotkey('ctrl+alt+q', lambda: run_remote_command("sound.py boxen", laptop, username))
-keyboard.add_hotkey('ctrl+alt+w', lambda: run_remote_command("sound.py bayer", laptop, username))
-keyboard.add_hotkey('ctrl+alt+e', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+r', lambda: run_remote_command("sound.py bose", laptop, username))
+keyboard.add_hotkey(
+    "ctrl+alt+q", lambda: run_remote_command("sound.py boxen", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+w", lambda: run_remote_command("sound.py bayer", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+e", lambda: run_remote_command("sound.py bose", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+r", lambda: run_remote_command("sound.py bose", laptop, username)
+)
 
-keyboard.add_hotkey('ctrl+alt+a', lambda: run_remote_command("display.py home-3", laptop, username))
-keyboard.add_hotkey('ctrl+alt+s', lambda: run_remote_command("display.py home-2-big", laptop, username))
-keyboard.add_hotkey('ctrl+alt+d', lambda: run_remote_command("display.py home-2-small", laptop, username))
-keyboard.add_hotkey('ctrl+alt+f', lambda: run_remote_command("display.py home-1", laptop, username))
+keyboard.add_hotkey(
+    "ctrl+alt+a", lambda: run_remote_command("display.py home-3", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+s", lambda: run_remote_command("display.py home-2-big", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+d",
+    lambda: run_remote_command("display.py home-2-small", laptop, username),
+)
+keyboard.add_hotkey(
+    "ctrl+alt+f", lambda: run_remote_command("display.py home-1", laptop, username)
+)
 
-keyboard.add_hotkey('ctrl+alt+y', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+x', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+c', lambda: run_remote_command("sound.py bose", laptop, username))
-keyboard.add_hotkey('ctrl+alt+v', lambda: run_remote_command("sound.py bose", laptop, username))
+keyboard.add_hotkey(
+    "ctrl+alt+y", lambda: run_remote_command("sound.py bose", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+x", lambda: run_remote_command("sound.py bose", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+c", lambda: run_remote_command("sound.py bose", laptop, username)
+)
+keyboard.add_hotkey(
+    "ctrl+alt+v", lambda: run_remote_command("sound.py bose", laptop, username)
+)
 
 keyboard.wait()
