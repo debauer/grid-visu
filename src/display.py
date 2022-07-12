@@ -17,17 +17,19 @@ camera_box = GridBox(GridPosition(6, 0), GridLayout(6, 3), "camera", )
 GridBox(GridPosition(0, 3), GridLayout(1, 1), "1")
 GridBox(GridPosition(1, 3), GridLayout(1, 1), "2")
 
-cimage = ContentImage(camera_box)
+c1image = ContentImage(camera_box)
+c2image = ContentImage(camera_box)
+c1image.load_image("img/example.jpg")
+c2image.load_image("img/example2.jpg")
 
 lala = False
 while True:
     if lala:
-        cimage.load_image("img/example.jpg")
         lala = False
+        c1image.draw()
     else:
-        cimage.load_image("img/example2.jpg")
         lala = True
-    cimage.draw()
+        c2image.draw()
     get_grid().draw()
     pygame.display.flip()
     time.sleep(0.01)
