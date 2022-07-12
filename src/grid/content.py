@@ -49,7 +49,6 @@ class ContentImage(ContentBase):
 
     def draw(self):
         if self.img:
-            print("Asdasd")
             self.surface.blit(self.img, (self.coordinates.x, self.coordinates.y))
 
 
