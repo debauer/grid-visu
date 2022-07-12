@@ -2,6 +2,7 @@ import time
 
 import pygame
 from pygame.surface import SurfaceType
+from pygame.time import get_ticks
 
 from grid.base import GridBox, get_grid, create_grid
 from grid.content import ContentImage
@@ -23,6 +24,8 @@ c1image.load_image("img/example.jpg")
 c2image.load_image("img/example2.jpg")
 
 lala = False
+ticks = get_ticks()
+perf = time.perf_counter()
 while True:
     if lala:
         lala = False
@@ -32,4 +35,9 @@ while True:
         c2image.draw()
     get_grid().draw()
     pygame.display.flip()
-    time.sleep(0.01)
+    t = get_ticks()
+    p = time.perf_counter()
+    print(f"tick: {t - ticks}")
+    print(f"perf: {p - perf}")
+    ticks = t
+    perf = p

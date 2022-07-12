@@ -66,8 +66,8 @@ class ContentList(ContentBase):
         pygame.screen.blit(
             text,
             (
-                self.coordinates.x + self.padding + 10,
-                self.coordinates.y + self.padding + 8,
+                self.coordinates.x + 10,
+                self.coordinates.y + 8,
             ),
         )
 
@@ -76,7 +76,7 @@ class ContentList(ContentBase):
         self.surface.blit(
             text,
             (
-                self.coordinates.x + self.padding + 10,
-                self.coordinates.y + self.padding + 8,
+                self.coordinates.x + 10,
+                self.coordinates.y + 8,
             ),
         )
