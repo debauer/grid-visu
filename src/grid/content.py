@@ -44,7 +44,7 @@ class ContentImage(ContentBase):
         self.img = None
 
     def load_image(self, image: str):
-        img = pygame.image.load(image)
+        img = pygame.image.load(image).convert()
         self.img = pygame.transform.scale(img, (self.size.x, self.size.y))
 
     def draw(self):
