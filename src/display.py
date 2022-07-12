@@ -30,4 +30,4 @@ while True:
     cimage.draw()
     get_grid().draw()
     pygame.display.flip()
-    time.sleep(0.5)
+    time.sleep(0.01)
