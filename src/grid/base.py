@@ -1,10 +1,8 @@
-from typing import NamedTuple, Type, Dict
+from typing import Optional, List
 
 import pygame
-from pygame import surface
 from pygame.surface import SurfaceType
 
-from grid.content import ContentBase
 from misc.font import headline_font
 from misc.types import Coordinate, Size, GridLayout, GridPosition
 from settings import (
@@ -18,28 +16,24 @@ class GridBoxBase:
 
     def __init__(
         self,
-        screen: SurfaceType,
         pos: GridPosition,
         layout: GridLayout = (1, 1),
         name: str = "",
     ) -> None:
+        self.grid = get_grid()
         self.layout = layout
         self.name = name
-        self.screen = screen
+        self.surface = self.grid.surface
         self.pos = pos
         self.coordinates = Coordinate(
-            int(self.screen.get_width() / grid_layout.x * self.pos.x),
-            int(self.screen.get_height() / grid_layout.y * self.pos.y),
+            int(self.surface.get_width() / grid_layout.x * self.pos.x),
+            int(self.surface.get_height() / grid_layout.y * self.pos.y),
         )
         self.size = Size(
-            int(self.screen.get_width() / grid_layout.x) * self.layout.x,
-            int(self.screen.get_height() / grid_layout.y * self.layout.y),
+            int(self.surface.get_width() / grid_layout.x) * self.layout.x,
+            int(self.surface.get_height() / grid_layout.y * self.layout.y),
         )
-        self.child: ContentBase | None = None
-
-    def add_child(self, child: Type[ContentBase]) -> ContentBase:
-        self.child = child(self.screen, self.pos)
-        return self.child
+        self.grid.add_box(self)
 
     def draw(self):
         pass
@@ -58,12 +52,12 @@ class GridBox(GridBoxBase):
         c4 = Coordinate(
             self.coordinates.x - padding + self.size.x, self.coordinates.y + padding
         )
-        print(c1, c2, c3, c4)
-        pygame.draw.polygon(self.screen, color, (c1, c2, c3, c4), size)
+        #print(c1, c2, c3, c4)
+        pygame.draw.polygon(self.surface, color, (c1, c2, c3, c4), size)
 
     def _set_titel(self):
         text = headline_font().render(self.name, True, box_colors.headline)
-        self.screen.blit(
+        self.surface.blit(
             text,
             (
                 self.coordinates.x + self.padding + 10,
@@ -77,7 +71,7 @@ class GridBox(GridBoxBase):
         c2 = Coordinate(
             self.coordinates.x + self.size.x - padding, self.coordinates.y + padding_top
         )
-        pygame.draw.line(self.screen, box_colors.border2, c1, c2, 1)
+        pygame.draw.line(self.surface, box_colors.border2, c1, c2, 1)
 
     def draw(self):
         self._draw_box(self.padding, box_colors.border1, 3)
@@ -87,23 +81,35 @@ class GridBox(GridBoxBase):
 
 class Grid:
     layout: GridLayout = (3, 2)
-    boxes: Dict[str, GridBoxBase] = {}
+    boxes: List[GridBoxBase] = []
 
-    def __init__(self, screen: SurfaceType, layout: GridLayout = GridLayout(1, 1)):
-        self._screen = screen
+    def __init__(self, surface: SurfaceType, layout: GridLayout = GridLayout(1, 1)):
+        self.surface = surface
         self._layout = layout
-        self.grid_width = self._screen.get_width() / self._layout.x
-        self.grid_height = self._screen.get_height() / self._layout.y
+        self.grid_width = self.surface.get_width() / self._layout.x
+        self.grid_height = self.surface.get_height() / self._layout.y
 
-    def add_box(self, name: str, pos: GridPosition, layout: GridLayout = (1, 1)) -> GridBoxBase:
-        self.boxes[name] = GridBox(
-            screen=self._screen,
-            pos=pos,
-            layout=layout,
-            name=name,
-        )
-        return self.boxes[name]
+    def add_box(self, box: GridBoxBase):
+        self.boxes.append(box)
 
     def draw(self):
-        for key in self.boxes:
-            self.boxes[key].draw()
+        for box in self.boxes:
+            box.draw()
+
+
+__grid: Optional[Grid] = None
+
+
+def create_grid(screen: SurfaceType, layout: GridLayout):
+    global __grid
+    if __grid:
+        print("idiot!")
+    __grid = Grid(screen, layout)
+    return __grid
+
+
+def get_grid():
+    global __grid
+    if not __grid:
+        print("idiot")
+    return __grid
