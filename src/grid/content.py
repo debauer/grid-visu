@@ -4,7 +4,7 @@ import pygame
 from pygame.surface import SurfaceType
 from grid.base import get_grid, GridBoxBase
 from misc.font import text_font
-from misc.types import GridPosition, GridLayout, Coordinate, Size
+from misc.types import GridPosition, GridLayout, Coordinate, Size, Color
 from settings import content_color, grid_layout
 
 
@@ -38,7 +38,6 @@ class ContentBase:
 
 
 class ContentImage(ContentBase):
-
     def __init__(self, box: GridBoxBase, name: str = ""):
         super().__init__(box, name)
         self.img = None
@@ -51,6 +50,38 @@ class ContentImage(ContentBase):
         if self.img:
             self.surface.blit(self.img, (self.coordinates.x, self.coordinates.y))
 
+
+class ContentValue(ContentBase):
+    def __init__(self, box: GridBoxBase, name: str = ""):
+        super().__init__(box, name)
+        self.threshold: dict[float, Color] = {}
+        self.value = 0.0
+
+    def set_threshold(self, value: float, color: Color):
+        self.threshold[value] = color
+        
+    def set_value(self, value: float):
+        self.value = value
+
+    def draw(self):
+        c1 = Coordinate(self.coordinates.x, self.coordinates.y)
+        c2 = Coordinate(
+            self.coordinates.x, self.coordinates.y + self.size.y
+        )
+        c3 = Coordinate(
+            self.coordinates.x + self.size.x,
+            self.coordinates.y + self.size.y,
+        )
+        c4 = Coordinate(
+            self.coordinates.x + self.size.x, self.coordinates.y
+        )
+        pygame.draw.polygon(self.surface, (123,0,0), (c1, c2, c3, c4))
+        text = text_font().render(str(self.value), True, content_color.text)
+        text_rect = text.get_rect(center=(self.coordinates.x + self.size.x/2, self.coordinates.y + self.size.y/2))
+        self.surface.blit(
+            text,
+            text_rect,
+        )
 
 class ContentList(ContentBase):
 

@@ -1,0 +1,20 @@
+[Unit]
+Description=macro_pad
+After=syslog.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/deskpi
+ExecStart=/usr/bin/python3 src/macro_pad.py
+Environment=PYTHONUNBUFFERED=1
+User=pi
+Group=pi
+
+SyslogIdentifier=macro_pad
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

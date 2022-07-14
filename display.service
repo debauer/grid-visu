@@ -1,0 +1,20 @@
+[Unit]
+Description=display
+After=syslog.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/deskpi
+ExecStart=/usr/bin/python3 src/display.py
+Environment=PYTHONUNBUFFERED=1
+User=pi
+Group=pi
+
+SyslogIdentifier=display
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
