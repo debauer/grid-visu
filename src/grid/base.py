@@ -3,6 +3,7 @@ from typing import Optional, List
 import pygame
 from pygame.surface import SurfaceType
 
+from misc.registry import RegisterAble
 from misc.font import headline_font
 from misc.types import Coordinate, Size, GridLayout, GridPosition
 from settings import (
@@ -11,18 +12,15 @@ from settings import (
 )
 
 
-class GridBoxBase:
+class GridBoxBase(RegisterAble):
     padding = 3
+    unamed_count = 0
 
-    def __init__(
-        self,
-        pos: GridPosition,
-        layout: GridLayout = (1, 1),
-        name: str = "",
-    ) -> None:
+    def __init__(self, pos: GridPosition, layout: GridLayout = (1, 1), name: str = "") -> None:
+        RegisterAble.__init__(self)
         self.grid = get_grid()
         self.layout = layout
-        self.name = name
+        self.name = f"unnamed_{self.unamed_count}" if name == "" else name
         self.surface = self.grid.surface
         self.pos = pos
         self.coordinates = Coordinate(
@@ -38,6 +36,9 @@ class GridBoxBase:
     def draw(self):
         pass
 
+    def __repr__(self):
+        return f'GridBoxBase("{self.name}")'
+
 
 class GridBox(GridBoxBase):
     def _draw_box(self, padding: int, color, size=1):
@@ -52,7 +53,6 @@ class GridBox(GridBoxBase):
         c4 = Coordinate(
             self.coordinates.x - padding + self.size.x, self.coordinates.y + padding
         )
-        #print(c1, c2, c3, c4)
         pygame.draw.polygon(self.surface, color, (c1, c2, c3, c4), size)
 
     def _set_titel(self):
@@ -81,7 +81,7 @@ class GridBox(GridBoxBase):
 
 class Grid:
     layout: GridLayout = (3, 2)
-    boxes: List[GridBoxBase] = []
+    boxes: List[GridBox] = []
 
     def __init__(self, surface: SurfaceType, layout: GridLayout = GridLayout(1, 1)):
         self.surface = surface
@@ -89,7 +89,7 @@ class Grid:
         self.grid_width = self.surface.get_width() / self._layout.x
         self.grid_height = self.surface.get_height() / self._layout.y
 
-    def add_box(self, box: GridBoxBase):
+    def add_box(self, box: GridBox):
         self.boxes.append(box)
 
     def draw(self):
@@ -102,14 +102,20 @@ __grid: Optional[Grid] = None
 
 def create_grid(screen: SurfaceType, layout: GridLayout):
     global __grid
-    if __grid:
-        print("idiot!")
+    assert __grid is None
     __grid = Grid(screen, layout)
     return __grid
 
 
+def get_grid_box(name: str) -> Optional[GridBox]:
+    assert __grid is not None
+    for box in __grid.boxes:
+        if box.name == name:
+            return box
+    return
+
+
 def get_grid():
     global __grid
-    if not __grid:
-        print("idiot")
+    assert __grid is not None
     return __grid

@@ -11,6 +11,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.8"
 pygame = "^2.1.2"
+overrides = "^6.3.0"
+opencv-python = "^4.6.0.66"
 
 
 [tool.poetry.dev-dependencies]

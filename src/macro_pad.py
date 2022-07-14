@@ -27,6 +27,10 @@ def run_remote_command(command: str, host: str, username: str) -> None:
     print(opt)
 
 
+def do_nothing():
+    pass
+
+
 keyboard.add_hotkey(
     "ctrl+alt+q", lambda: run_remote_command("sound.py boxen", laptop, username)
 )
@@ -37,34 +41,35 @@ keyboard.add_hotkey(
     "ctrl+alt+e", lambda: run_remote_command("sound.py bose", laptop, username)
 )
 keyboard.add_hotkey(
-    "ctrl+alt+r", lambda: run_remote_command("sound.py bose", laptop, username)
+    "ctrl+alt+r", lambda: run_remote_command("sound.py internal", laptop, username)
 )
 
 keyboard.add_hotkey(
-    "ctrl+alt+a", lambda: run_remote_command("display.py home-3", laptop, username)
+    "ctrl+alt+a", lambda: run_remote_command("display.py laptop", laptop, username)
 )
 keyboard.add_hotkey(
-    "ctrl+alt+s", lambda: run_remote_command("display.py home-2-big", laptop, username)
+    "ctrl+alt+s", lambda: run_remote_command("display.py workspace", laptop, username)
 )
 keyboard.add_hotkey(
     "ctrl+alt+d",
-    lambda: run_remote_command("display.py home-2-small", laptop, username),
+    lambda: run_remote_command("display.py thinkvision", laptop, username),
 )
 keyboard.add_hotkey(
-    "ctrl+alt+f", lambda: run_remote_command("display.py home-1", laptop, username)
+    "ctrl+alt+f",
+    lambda: do_nothing,
 )
 
 keyboard.add_hotkey(
-    "ctrl+alt+y", lambda: run_remote_command("sound.py bose", laptop, username)
+    "ctrl+alt+y", lambda: do_nothing
 )
 keyboard.add_hotkey(
-    "ctrl+alt+x", lambda: run_remote_command("sound.py bose", laptop, username)
+    "ctrl+alt+x", lambda: do_nothing
 )
 keyboard.add_hotkey(
-    "ctrl+alt+c", lambda: run_remote_command("sound.py bose", laptop, username)
+    "ctrl+alt+c", lambda: do_nothing
 )
 keyboard.add_hotkey(
-    "ctrl+alt+v", lambda: run_remote_command("sound.py bose", laptop, username)
+    "ctrl+alt+v", lambda: do_nothing
 )
 
 keyboard.wait()

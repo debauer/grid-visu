@@ -4,11 +4,11 @@ After=syslog.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/pi/deskpi
+WorkingDirectory=/home/debauer/deskpi
 ExecStart=/usr/bin/python3 src/display.py
 Environment=PYTHONUNBUFFERED=1
-User=pi
-Group=pi
+User=debauer
+Group=debauer
 
 SyslogIdentifier=display
 StandardOutput=syslog
