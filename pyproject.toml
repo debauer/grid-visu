@@ -1,19 +1,24 @@
 [tool.poetry]
-name = "deskpi"
+name = "grid-visu"
 version = "0.0.1"
 description = ""
 authors = [
-    "David Bauer <hausprojekt@debauer.de>",
+    "David Bauer <github@debauer.de>",
 ]
 license = "MIT"
 readme = "README.md"
 
+packages = [{ include = "grid_visu", from = "src" }]
+
 [tool.poetry.dependencies]
 python = "^3.8"
-pygame = "^2.1.2"
+pygame = { version = "^2.1.2", allow-prereleases = true}
 overrides = "^6.3.0"
 opencv-python = "^4.6.0.66"
+numpy = "^1.23.5"
 
+[tool.poetry.scripts]
+gridvisu = 'grid_visu.display:main'
 
 [tool.poetry.dev-dependencies]
 black = "22.3.0"

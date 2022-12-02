@@ -4,11 +4,11 @@ from typing import List
 import cv2
 import pygame
 from pygame.surface import SurfaceType
-from grid.base import get_grid, GridBoxBase, get_grid_box
-from misc.font import text_font
-from misc.registry import RegisterAble
-from misc.types import GridPosition, GridLayout, Coordinate, Size, Color
-from settings import content_color, grid_layout
+
+from grid_visu.grid import get_grid_box, get_grid
+from grid_visu.misc import RegisterAble, Coordinate, Size, Color
+from grid_visu.misc.font import text_font
+from grid_visu.settings import grid_layout, content_color
 
 
 class ContentBase(RegisterAble):

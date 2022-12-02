@@ -3,13 +3,9 @@ from typing import Optional, List
 import pygame
 from pygame.surface import SurfaceType
 
-from misc.registry import RegisterAble
-from misc.font import headline_font
-from misc.types import Coordinate, Size, GridLayout, GridPosition
-from settings import (
-    box_colors,
-    grid_layout,
-)
+from grid_visu.misc import RegisterAble, GridPosition, GridLayout, Coordinate, Size
+from grid_visu.misc import headline_font
+from grid_visu.settings import grid_layout, box_colors
 
 
 class GridBoxBase(RegisterAble):

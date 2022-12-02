@@ -1,4 +1,4 @@
-from misc.types import ColorPaletteBox, Color, ColorPaletteContent
+from grid_visu.misc import ColorPaletteBox, Color, ColorPaletteContent
 
 palette_box1 = ColorPaletteBox(
     Color(34, 50, 64),
